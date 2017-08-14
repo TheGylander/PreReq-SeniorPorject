@@ -17,11 +17,6 @@ namespace SeniorProjectPreReq.Models
     {
         public DbSet<Opportunity> Opportunities { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            Database.SetInitializer<OpportunityDBContext>(null);
-            base.OnModelCreating(modelBuilder);
-        }
     }
 
     

@@ -15,9 +15,18 @@ namespace SeniorProjectPreReq.Controllers
         private OpportunityDBContext db = new OpportunityDBContext();
 
         // GET: Opportunities
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.Opportunities.ToList());
+            var opps = from o in db.Opportunities
+                         select o;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                opps = opps.Where(s => s.Center.Contains(searchString));
+            }
+
+            return View(opps);
+            //return View(db.Opportunities.ToList());
         }
 
         // GET: Opportunities/Details/5

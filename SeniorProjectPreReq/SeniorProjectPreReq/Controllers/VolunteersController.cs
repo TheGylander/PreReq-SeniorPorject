@@ -15,9 +15,18 @@ namespace SeniorProjectPreReq.Controllers
         private VolunteerDBContext db = new VolunteerDBContext();
 
         // GET: Volunteers
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.Volunteers.ToList());
+            var vols = from v in db.Volunteers
+                         select v;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                vols = vols.Where(s => s.lastName.Contains(searchString));
+            }
+
+            return View(vols);
+            //return View(db.Volunteers.ToList());
         }
 
         // GET: Volunteers/Details/5
